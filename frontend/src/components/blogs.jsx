@@ -37,17 +37,23 @@ function Blog() {
         axios.post('http://localhost:7000/api/blog', { title: title, blog: Content }).then(
             function (data) {
                 console.log("Data send to server successfully")
-                console.log(data.data[0].title)
-
-                data.data.map(function (item) {
-                    setDbTit([item.title])
-                    console.log(dbtitle)
-                    data = [title]
-                    return <p>Title:{item.title}</p>
-                })
+                console.log(data.data)
             }
         )
     }
+
+    useEffect(() => {
+        axios.post('http://localhost:7000/api/blog').then(
+            function (data) {
+                console.log("Data send to server successfully")
+                const allTitle = []
+                for (var i = 0; i < data.data.length; i++) {
+                    allTitle.push(data.data[i].title)
+                }
+                setDbTit(allTitle)
+            }
+        )
+    }, [])
 
     return (
         <>
@@ -76,12 +82,11 @@ function Blog() {
                 </div> : ""}
 
                 {/* db data */}
-                <div>
-                    {
-                        dbtitle.map(function (data) {
-                            return <p> {data} </p>
-                        })
-                    }
+                <div className="border border-blue-600 p-10 w-[50%] my-5 ">
+                    <h1>Blogs</h1>
+                    <h1>Title : {dbtitle}</h1>
+                    <h1>Content :{dbBlog}</h1>
+
                 </div>
             </div>
         </>

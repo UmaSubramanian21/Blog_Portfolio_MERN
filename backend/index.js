@@ -6,7 +6,7 @@ app.use(cors())
 app.use(express.json())
 
 // connect server with mongodb
-const connection = mongoose.connect("mongodb://127.0.0.1:27017/blog")
+const connection = mongoose.connect("mongodb+srv://us:123@blogportfolio.kor6eeo.mongodb.net/blog?retryWrites=true&w=majority&appName=blogPortfolio")
 connection.then(function () {
     console.log("DB Connected Successfully")
 }).catch(
@@ -32,7 +32,7 @@ const Blog = mongoose.model("blog", {
 }, "blog")
 
 Blog.find().then(function (data) {
-    console.log("Blog model find() works perfectly")
+    console.log("Blog model find() works perfectly",data)
 }).catch(function () {
     console.log("Blog model find() doesn't works")
 })
